@@ -141,7 +141,7 @@ ifndef NO_FBLAS
 	$(MAKE) -C test all
 endif
 	$(MAKE) -C utest all
-ifneq ($(NO_CBLAS), 1)
+ifndef NO_CBLAS
 	$(MAKE) -C ctest all
 ifeq ($(CPP_THREAD_SAFETY_TEST), 1)
 	$(MAKE) -C cpp_thread_test all
@@ -244,7 +244,7 @@ ifeq ($(NOFORTRAN), $(filter 0,$(NOFORTRAN)))
 	@$(MAKE) -C $(NETLIB_LAPACK_DIR) lapacklib
 	@$(MAKE) -C $(NETLIB_LAPACK_DIR) tmglib
 endif
-ifneq ($(NO_LAPACKE), 1)
+ifndef NO_LAPACKE
 	@$(MAKE) -C $(NETLIB_LAPACK_DIR) lapackelib
 endif
 endif
