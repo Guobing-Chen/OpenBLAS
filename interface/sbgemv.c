@@ -178,21 +178,12 @@ void CNAME(enum CBLAS_ORDER order, enum CBLAS_TRANSPOSE TransA, blasint m, blasi
     if (incy < 0) {y -= (leny - 1) * incy;}
 
 #ifdef SMP
-    int thread_thres_row = 20480;
-    if (trans) {
-        if (n <= thread_thres_row) {
-            nthreads = 1;
-        } else {
-            nthreads = num_cpu_avail(1);
-        }
+    int thread_thres = 131072;
+    if (n*m <= thread_thres) {
+        nthreads = 1;
     } else {
-        if (m <= thread_thres_row) {
-            nthreads = 1;
-        } else {
-            nthreads = num_cpu_avail(1);
-        }
+        nthreads = num_cpu_avail(1);
     }
-
 
     if (nthreads == 1) {
 #endif
